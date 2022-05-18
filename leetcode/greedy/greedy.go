@@ -32,3 +32,34 @@ func max(a, b int) int {
 }
 
 
+// leetcode https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/
+// 买卖股票的最佳时机 II
+// 7,1,5,3,6,4
+// [1,2,3,4,5]
+// [6,1,3,2,4,7]
+func MaxProfit(prices []int) int {
+	if len(prices) == 1 {
+		return 0
+	}
+
+	purchasePrice := prices[0]
+	profit := 0
+	allProfit := 0
+
+	for i:=1; i<len(prices); i++ {
+		if 	purchasePrice < prices[i] && prices[i]-purchasePrice > profit {
+			profit = prices[i]-purchasePrice
+		} else {
+			purchasePrice = prices[i]
+			allProfit += profit
+			profit = 0
+		}
+	}
+
+	allProfit += profit
+
+	return allProfit
+}
+
+// https://leetcode.cn/problems/remove-k-digits/
+// 移掉 K 位数字
