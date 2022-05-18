@@ -1,5 +1,7 @@
 package greedy
 
+import "strings"
+
 // https://leetcode.cn/problems/candy/
 // 分发糖果
 func candy(ratings []int) (ans int) {
@@ -31,7 +33,6 @@ func max(a, b int) int {
 	return b
 }
 
-
 // leetcode https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/
 // 买卖股票的最佳时机 II
 // 7,1,5,3,6,4
@@ -46,9 +47,9 @@ func MaxProfit(prices []int) int {
 	profit := 0
 	allProfit := 0
 
-	for i:=1; i<len(prices); i++ {
-		if 	purchasePrice < prices[i] && prices[i]-purchasePrice > profit {
-			profit = prices[i]-purchasePrice
+	for i := 1; i < len(prices); i++ {
+		if purchasePrice < prices[i] && prices[i]-purchasePrice > profit {
+			profit = prices[i] - purchasePrice
 		} else {
 			purchasePrice = prices[i]
 			allProfit += profit
@@ -63,3 +64,21 @@ func MaxProfit(prices []int) int {
 
 // https://leetcode.cn/problems/remove-k-digits/
 // 移掉 K 位数字
+// 3210 2
+func removeKdigits(num string, k int) string {
+	stack := []byte{}
+	for i := range num {
+		digit := num[i]
+		for k > 0 && len(stack) > 0 && digit < stack[len(stack)-1] {
+			stack = stack[:len(stack)-1]
+			k--
+		}
+		stack = append(stack, digit)
+	}
+	stack = stack[:len(stack)-k]
+	ans := strings.TrimLeft(string(stack), "0")
+	if ans == "" {
+		ans = "0"
+	}
+	return ans
+}
