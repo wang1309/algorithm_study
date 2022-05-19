@@ -82,3 +82,39 @@ func removeKdigits(num string, k int) string {
 	}
 	return ans
 }
+
+// https://leetcode.cn/problems/jump-game/
+// 跳跃游戏
+// [2,3,1,1,4]
+func canJump(nums []int) bool {
+	if len(nums) == 1 {
+		return true
+	}
+
+	allStep := 0
+
+	for i := 0; i < len(nums); i++ {
+		if nums[i] == 0 && i != len(nums)-1{
+			return false
+		}
+
+		if nums[i] >= len(nums)-1 {
+			return true
+		}
+
+		if allStep < len(nums) {
+			allStep += nums[i]
+		} else {
+			return true
+		}
+
+		if nums[nums[i] + i] == 0 {
+			return false
+		}
+	}
+
+	return false
+}
+
+
+

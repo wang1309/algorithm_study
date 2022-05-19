@@ -20,6 +20,13 @@ func TestMaxProfit(t *testing.T) {
 	fmt.Println(MaxProfit(prices))
 }
 
+// 移掉 K 位数字
 func TestRemoveKdigits(t *testing.T) {
 	fmt.Println(removeKdigits("3210", 2))
+}
+
+// 跳跃游戏
+func TestCanJump(t *testing.T) {
+	jumps := []int{2, 3, 1, 1, 4}
+	fmt.Println(canJump(jumps))
 }
