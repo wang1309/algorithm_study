@@ -48,7 +48,6 @@ func hasCycleHash(head *ListNode) bool {
 	return false
 }
 
-
 // hasCycle 龟兔赛跑解法
 func hasCycle(head *ListNode) bool {
 	if head == nil || head.Next == nil {
@@ -88,4 +87,49 @@ func reverseBetween(head *ListNode, left int, right int) *ListNode {
 		pre.Next = next
 	}
 	return dummyNode.Next
+}
+
+// https://leetcode.cn/problems/palindrome-linked-list/
+// 回文链表
+// [1,2,2,1]
+
+// 方法一：将值复制到数组中后用双指针法
+func isPalindrome1(head *ListNode) bool {
+	if head == nil {
+		return false
+	}
+
+	arr := []int{}
+
+	for head != nil {
+		arr = append(arr, head.Val)
+		head = head.Next
+	}
+
+	length := len(arr)
+	j := length - 1
+
+	for i := 0; i < length/2; i++ {
+		if arr[i] != arr[j] {
+			return false
+		}
+		j--
+	}
+
+	return true
+}
+
+// https://leetcode.cn/problems/remove-nth-node-from-end-of-list/
+// 删除链表的倒数第 N 个结点
+func removeNthFromEnd(head *ListNode, n int) *ListNode {
+	dummy := &ListNode{0, head}
+	fast, slow := head, dummy
+	for i := 0; i < n; i++ {
+		fast = fast.Next
+	}
+	for ; fast != nil; fast = fast.Next {
+		slow = slow.Next
+	}
+	slow.Next = slow.Next.Next
+	return dummy.Next
 }
