@@ -1,6 +1,9 @@
 package tree
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func GenerateTree() *TreeNode {
 	node := &TreeNode{
@@ -54,4 +57,8 @@ func TestPostorderTraversal(t *testing.T)  {
 // 层序遍历
 func TestLevelOrder(t *testing.T)  {
 	levelOrder(rootNode)
+}
+
+func TestMaxDepth(t *testing.T)  {
+	fmt.Println(maxDepth(rootNode))
 }

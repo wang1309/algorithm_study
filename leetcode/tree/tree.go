@@ -104,3 +104,25 @@ func RecursionTraversal(nodeSlice []*TreeNode) {
 
 	RecursionTraversal(nexSlice)
 }
+
+// https://leetcode.cn/problems/maximum-depth-of-binary-tree/
+// 二叉树的最大深度
+func maxDepth(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+
+	leftHeight := maxDepth(root.Left)
+	rightHeight := maxDepth(root.Right)
+
+	return max(leftHeight, rightHeight) + 1
+
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+
+	return b
+}
