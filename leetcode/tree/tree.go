@@ -126,3 +126,32 @@ func max(a, b int) int {
 
 	return b
 }
+
+// https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/
+// 二叉树的最近公共祖先
+func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
+	return find(root, p.Val, q.Val)
+}
+
+func find(root *TreeNode, val1, val2 int) *TreeNode {
+	if root == nil {
+		return nil
+	}
+
+	if root.Val == val1 || root.Val == val2 {
+		return root
+	}
+
+	left := find(root.Left, val1, val2)
+	right := find(root.Right, val1, val2)
+
+	if left != nil && right != nil {
+		return root
+	}
+
+	if left == nil {
+		return right
+	}
+
+	return right
+}
