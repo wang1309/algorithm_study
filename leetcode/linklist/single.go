@@ -26,6 +26,46 @@ func reverseList(head *ListNode) *ListNode {
 	return prev
 }
 
+// 反转链表递归解法
+func reverseListRec(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+
+	last := reverseListRec(head.Next)
+	head.Next.Next = head
+	head.Next = nil
+	return last
+}
+
+// 反转链表前 N 个节点
+var successor *ListNode
+func reverseN(head *ListNode, n int) *ListNode {
+	if n == 1 {
+		successor = head.Next
+		return head
+	}
+
+	last := reverseN(head.Next, n-1)
+	head.Next.Next = head
+	head.Next = successor
+
+	return last
+}
+
+// 反转链表的一部分
+// 给一个索引区间 [m, n]（索引从 1 开始），仅仅反转区间中的链表元素。
+func reverseBetweenRec(head *ListNode, m , n int) *ListNode {
+	if m == 1 {
+		// 相当于反转前 n 个元素
+		return reverseN(head, n)
+	}
+
+
+	head.Next = reverseBetweenRec(head.Next, m-1, n-1)
+	return head
+}
+
 // https://leetcode.cn/problems/linked-list-cycle/
 // 环形链表
 // hasCycleHash hash 表法
@@ -211,4 +251,28 @@ func middleNode(head *ListNode) *ListNode {
 	}
 
 	return slow
+}
+
+// https://leetcode.cn/problems/palindrome-linked-list/
+// 回文链表
+var left *ListNode
+func isPalindrome(head *ListNode) bool {
+	if head == nil {
+		return false
+	}
+
+	left = head
+	return traverse(head)
+}
+
+func traverse(right *ListNode) bool {
+	if right == nil {
+		return true
+	}
+
+	res := traverse(right.Next)
+
+	res = res && (right.Val == left.Val)
+	left = left.Next
+	return res
 }
