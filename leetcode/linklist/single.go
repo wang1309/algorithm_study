@@ -133,3 +133,82 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	slow.Next = slow.Next.Next
 	return dummy.Next
 }
+
+// https://leetcode.cn/problems/merge-two-sorted-lists/
+// 合并两个有序链表
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
+	if list1 == nil && list2 == nil {
+		return nil
+	}
+
+	dummy := &ListNode{}
+
+	p := dummy
+
+	for list1 != nil && list2 != nil {
+		if list1.Val > list2.Val {
+			p.Next = list2
+			list2 = list2.Next
+		} else {
+			p.Next = list1
+			list1 = list1.Next
+		}
+
+		p = p.Next
+	}
+
+	if list1 != nil {
+		p.Next = list1
+	}
+
+	if list2 != nil {
+		p.Next = list2
+	}
+
+	return dummy.Next
+}
+
+// 返回链表的倒数第 k 个节点
+func findFromEnd(head *ListNode, k int) *ListNode {
+	if head == nil || k < 0 {
+		return nil
+	}
+
+	p1 := head
+	for i := 0; i < k; i++ {
+		p1 = p1.Next
+	}
+
+	p2 := head
+
+	for p1 != nil {
+		p1 = p1.Next
+		p2 = p2.Next
+	}
+
+	return p2
+}
+
+
+// https://leetcode.cn/problems/middle-of-the-linked-list/
+// 链表的中间结点
+func middleNode(head *ListNode) *ListNode {
+	if head == nil {
+		return nil
+	}
+
+	fast, slow := head, head
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+
+	return slow
+}
